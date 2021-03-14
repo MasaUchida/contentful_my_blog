@@ -1,22 +1,23 @@
 import { FC } from 'react'
 import Head from 'next/head'
-import Header from '../components/header'
-import Footer from '../components/footer'
-import styles from '../styles/Home.module.css'
+import Header from './lv.3/header'
+import Footer from './lv.3/footer'
+
 
 
 const Layout: FC = ({children})  =>　{
     return(
         <>
-        <div className={styles.container}>
             <Head>
                 <title>Create Next App</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <Header/>
-                {children}
+                <div>
+                    {children}
+                </div>
             <Footer/>
-            </div>
+
         </>
     )
 }

@@ -1,40 +1,27 @@
 import {FC} from 'react';
 import Layout from '../components/layout'
-import Post from '../components/post'
-import Sidebar from '../components/sidebar'
-import IconLink from '../components/iconlink'
+import Slider from '../components/lv.3/slider'
+import PostsList from '../components/lv.3/postslist';
+import Sidebar from '../components/lv.3/sidebar'
+import IconLink from '../components/lv.3/iconlink'
 
-import styles from '../styles/Home.module.css'
+import styled from 'styled-components'
 
+const iconBg = 'icon_link_bg.png'
 
 const Home:FC = () => {
     return (
         <Layout>
-            <main className={styles.main}>
-                <img src="vercel.svg" alt=""/>
-                <Post
-                    thumbnailUrl="#"
-                    title="テストタイトル1"
-                    exerpt="テスト文章の差込ですよーテスト文章の差込ですよー"
-                    category="テストカテゴリ"
-                    linkUrl="#"
-                />
-                <Post
-                    thumbnailUrl="#"
-                    title="テストタイトル2"
-                    exerpt="テスト文章の差込ですよーテスト文章の差込ですよー"
-                    category="テストカテゴリ"
-                    linkUrl="#"
-                />
-                <Post
-                    thumbnailUrl="#"
-                    title="テストタイトル3"
-                    exerpt="テスト文章の差込ですよーテスト文章の差込ですよー"
-                    category="テストカテゴリ"
-                    linkUrl="#"
-                />
-                <Sidebar/>
-                <div>
+            <main>
+                <KeyVisual>
+                    <Slider/>
+                </KeyVisual>
+                <MainSection>
+                    <PostsList/>
+                    <Sidebar/>
+                </MainSection>
+                <h2>マガジン</h2>
+                <IconLinkSection>
                     <IconLink
                         iconUrl="#"
                         text="アイコンリンクのテストテキスト"
@@ -55,10 +42,30 @@ const Home:FC = () => {
                         text="アイコンリンクのテストテキスト"
                         linkUrl="#"
                     />
-                </div>
+                </IconLinkSection>
             </main>
         </Layout>
     )
 }
+
+const KeyVisual = styled.section`
+    width: 100%;
+    margin-bottom: 64px;
+`
+
+const MainSection = styled.section`
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto 64px auto;
+`
+
+const IconLinkSection = styled.section`
+    width: 100%;
+    height: 320px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-image: url(${iconBg});
+`
 
 export default Home;
