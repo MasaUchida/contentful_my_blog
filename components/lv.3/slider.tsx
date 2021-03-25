@@ -1,13 +1,16 @@
 import { FC } from 'react';
 import Link from 'next/link'
 import { Swiper, SwiperSlide } from 'swiper/react';
+import SwiperCore,{ Autoplay,Navigation,Pagination }from 'swiper'
 import styled from 'styled-components';
 
 const imageUrl = 'post_dummy.png'
 
-//import 'swiper/components/navigation/navigation.scss';
-//import 'swiper/components/pagination/pagination.scss';
+
+
 //import 'swiper/components/scrollbar/scrollbar.scss';
+
+SwiperCore.use([Autoplay,Navigation,Pagination])
 
 
 interface SliderPostProps {
@@ -21,8 +24,21 @@ const Slider: FC<SliderPostProps> = ({thumbnailUrl,title,category,linkUrl})  =>�
     return(
         <>
             <Swiper
+                speed = {600}
                 spaceBetween={50}
                 slidesPerView={1}
+                loop={true}
+                autoplay={{
+                    delay: 3000,
+
+                }}
+                navigation
+                pagination={{
+                    clickable : true,
+                    renderBullet: (index,className) => {
+                        return `<span class = ${className}>${index}</span>`
+                    }
+                }}
                 onSlideChange={() => console.log('slide change')}
                 onSwiper={(swiper) => console.log(swiper)}
             >
@@ -35,7 +51,7 @@ const Slider: FC<SliderPostProps> = ({thumbnailUrl,title,category,linkUrl})  =>�
                                     <Thumbnail src={imageUrl} alt="#"/>
                                 </Figure>
                                 <MainTitle>
-                                    <Title>仮のテストタイトル</Title>
+                                    <Title>仮のテストタイトル1</Title>
                                     <CreateDate>discription</CreateDate>
                                 </MainTitle>
                             </a>
@@ -51,7 +67,7 @@ const Slider: FC<SliderPostProps> = ({thumbnailUrl,title,category,linkUrl})  =>�
                                     <Thumbnail src={imageUrl} alt="#"/>
                                 </Figure>
                                 <MainTitle>
-                                    <Title>仮のテストタイトル</Title>
+                                    <Title>仮のテストタイトル2</Title>
                                     <CreateDate>discription</CreateDate>
                                 </MainTitle>
                             </a>
@@ -67,7 +83,7 @@ const Slider: FC<SliderPostProps> = ({thumbnailUrl,title,category,linkUrl})  =>�
                                     <Thumbnail src={imageUrl} alt="#"/>
                                 </Figure>
                                 <MainTitle>
-                                    <Title>仮のテストタイトル</Title>
+                                    <Title>仮のテストタイトル3</Title>
                                     <CreateDate>discription</CreateDate>
                                 </MainTitle>
                             </a>
@@ -83,11 +99,12 @@ const Slider: FC<SliderPostProps> = ({thumbnailUrl,title,category,linkUrl})  =>�
                                     <Thumbnail src={imageUrl} alt="#"/>
                                 </Figure>
                                 <MainTitle>
-                                    <Title>仮のテストタイトル</Title>
+                                    <Title>仮のテストタイトル4</Title>
                                     <CreateDate>discription</CreateDate>
                                 </MainTitle>
                             </a>
                         </Link>
+
                     </MainVisualArticle>
                 </SwiperSlide>
             </Swiper>
@@ -99,10 +116,16 @@ export default Slider
 const MainVisualArticle = styled.article`
     position: relative;
     margin: 0 auto;
-    width: 960px;
+    //width: 960px;
     height: 480px;
     border-radius: 8px;
 `
+const CustomSliderPagenation=styled.span`
+    width: 25%;
+    height: 8px;
+    background-color: #00A79B;
+`
+
 const MainTitle = styled.div`
     position: absolute;
     padding: 20px 32px;

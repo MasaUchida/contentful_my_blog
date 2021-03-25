@@ -1,47 +1,25 @@
 import {FC} from 'react';
 import Layout from '../components/layout'
 import Slider from '../components/lv.3/slider'
-import PostsList from '../components/lv.3/postslist';
-import Sidebar from '../components/lv.3/sidebar'
-import IconLink from '../components/lv.3/iconlink'
+import PostsBlock from '../components/lv.3/postsblock';
+import SideBarBlock from '../components/lv.3/sidebarblock';
+import IconsList from '../components/lv.3/iconslist'
 
 import styled from 'styled-components'
 
-const iconBg = 'icon_link_bg.png'
-
 const Home:FC = () => {
     return (
-        <Layout>
+        <Layout layoutConf = 'HOME'>
             <main>
                 <KeyVisual>
                     <Slider/>
                 </KeyVisual>
                 <MainSection>
-                    <PostsList/>
-                    <Sidebar/>
+                    <PostsBlock/>
+                    <SideBarBlock/>
                 </MainSection>
-                <h2>マガジン</h2>
                 <IconLinkSection>
-                    <IconLink
-                        iconUrl="#"
-                        text="アイコンリンクのテストテキスト"
-                        linkUrl="#"
-                    />
-                    <IconLink
-                        iconUrl="#"
-                        text="アイコンリンクのテストテキスト"
-                        linkUrl="#"
-                    />
-                    <IconLink
-                        iconUrl="#"
-                        text="アイコンリンクのテストテキスト"
-                        linkUrl="#"
-                    />
-                    <IconLink
-                        iconUrl="#"
-                        text="アイコンリンクのテストテキスト"
-                        linkUrl="#"
-                    />
+                    <IconsList/>
                 </IconLinkSection>
             </main>
         </Layout>
@@ -50,22 +28,18 @@ const Home:FC = () => {
 
 const KeyVisual = styled.section`
     width: 100%;
-    margin-bottom: 64px;
+    padding: 112px 0 64px 0;
 `
 
 const MainSection = styled.section`
     display: flex;
+    justify-content: flex-start;
     max-width: 1200px;
     margin: 0 auto 64px auto;
 `
 
 const IconLinkSection = styled.section`
-    width: 100%;
-    height: 320px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-image: url(${iconBg});
+    margin-bottom: 80px;
 `
 
 export default Home;

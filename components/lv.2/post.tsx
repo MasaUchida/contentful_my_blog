@@ -43,12 +43,14 @@ export default Post
 
 
 const Card = styled.article<{isLast: boolean}>`
+    position: relative;
     width: 100%;
     margin-bottom: ${({ isLast }) => isLast ? 0 : 24}px;
-    box-shadow: 0 0 16px rgba(0,0,0,0.12);
     border-radius: 8px;
+    background-color: #FFF;
     border: solid 1px #DBD2C5;
     overflow: hidden;
+    z-index: 5;
 `
 
 const BoxWrapper = styled.div`
