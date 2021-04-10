@@ -11,12 +11,13 @@ interface cardProps {
     category?: string;
     linkUrl?: string;
     IsNoPadding?: boolean;
+    cardWidth?: number;
 }
-const Card: FC<cardProps> = ({thumbnailUrl,title,exerpt,category,linkUrl,IsNoPadding})  =>　{
+const Card: FC<cardProps> = ({thumbnailUrl,title,exerpt,category,linkUrl,IsNoPadding,cardWidth})  =>　{
     return(
-        <CardBody>
+        <CardBody width = {cardWidth}>
             <Link href={linkUrl}>
-                <a>
+                <LinkWrapper>
                     <ImageBox>
                         <Category>{category}</Category>
                         <Figure>
@@ -31,7 +32,7 @@ const Card: FC<cardProps> = ({thumbnailUrl,title,exerpt,category,linkUrl,IsNoPad
                         </CardBottomWrapper>
                             <DecorationButton></DecorationButton>
                     </TextBox>
-                </a>
+                </LinkWrapper>
             </Link>
         </CardBody>
     )
@@ -39,14 +40,23 @@ const Card: FC<cardProps> = ({thumbnailUrl,title,exerpt,category,linkUrl,IsNoPad
 export default Card
 
 
-const CardBody = styled.article`
+const CardBody = styled.article<{width: number}>`
     overflow: hidden;
     margin-bottom: 24px;
-    width: 47%;
+    width: ${({width}) => width || 47 }%;
     border-radius: 8px;
     background-color: #FFFFFF;
     box-shadow: 0 0 16px rgba(0,0,0,0.12);
 `
+
+const LinkWrapper = styled.a`
+    text-decoration: none;
+    &:hover{
+        text-decoration: none;
+        color: #000;
+    }
+`
+
 const ImageBox = styled.div`
     position: relative;
 `

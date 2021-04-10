@@ -1,13 +1,25 @@
 import {FC} from 'react';
+import { GetStaticProps , InferGetStaticPropsType } from 'next'
+import remark from 'remark'
+import html from 'remark-html'
+
+import { getLimitPosts } from '../lib/getposts';
+
 import Layout from '../components/layout'
 import Slider from '../components/lv.3/slider'
 import PostsBlock from '../components/lv.3/postsblock';
 import SideBarBlock from '../components/lv.3/sidebarblock';
-import IconsList from '../components/lv.3/iconslist'
+//import IconsList from '../components/lv.3/iconslist'
 
 import styled from 'styled-components'
 
-const Home:FC = () => {
+
+const Home:FC = ({postList}:InferGetStaticPropsType<typeof getStaticProps>) => {
+
+
+    //console.log(postList)
+    //postList.map((item)=>{console.log(item.fields)})
+
     return (
         <Layout layoutConf = 'HOME'>
             <main>
@@ -15,15 +27,27 @@ const Home:FC = () => {
                     <Slider/>
                 </KeyVisual>
                 <MainSection>
-                    <PostsBlock/>
+                    <PostsBlock list = {postList}/>
                     <SideBarBlock/>
                 </MainSection>
-                <IconLinkSection>
-                    <IconsList/>
-                </IconLinkSection>
             </main>
         </Layout>
     )
+}
+
+//  <IconLinkSection>
+//      <IconsList/>
+//  </IconLinkSection>
+
+export const getStaticProps :GetStaticProps = async () => {
+
+    const postsObject = await getLimitPosts(10)
+    const postList = postsObject.items
+    return{
+        props: {
+            postList
+        }
+    }
 }
 
 const KeyVisual = styled.section`

@@ -39,8 +39,8 @@ const Slider: FC<SliderPostProps> = ({thumbnailUrl,title,category,linkUrl})  =>ã
                         return `<span class = ${className}>${index}</span>`
                     }
                 }}
-                onSlideChange={() => console.log('slide change')}
-                onSwiper={(swiper) => console.log(swiper)}
+                //onSlideChange={() => console.log('slide change')}
+                //onSwiper={(swiper) => console.log(swiper)}
             >
                 <SwiperSlide>
                     <MainVisualArticle>

@@ -1,9 +1,11 @@
-import { FC } from 'react';
+import { FC } from 'react'
+import { useRouter } from 'next/router'
+
 import Layout from '../../components/layout'
 import CardBlock from '../../components/lv.3/cardblock'
 import SideBarBlock from '../../components/lv.3/sidebarblock'
 
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 const imageUrl = '/post_dummy.png'
 
@@ -12,10 +14,25 @@ interface Props {
 }
 
 const Category: FC<Props> = ({})  =>　{
+    const router = useRouter()
+    const pageURI = router.query // 返り値{ category: "academic-design" }
+    let titleText
+
+    switch (pageURI.category) {
+        case 'academic-design':
+            titleText = '大学とデザイン'
+        break;
+        case 'tips':
+            titleText = 'デザインtips'
+        break;
+        default:
+            console.log(`スイッチ失敗`);
+    }
+
     return(
         <Layout>
             <KeyVisualSection>
-                <Title>テストカテゴリータイトル</Title>
+                <Title>{titleText}</Title>
             </KeyVisualSection>
             <MainSection>
                 <CardBlock blockWidth = {66}/>

@@ -1,39 +1,34 @@
 import { FC } from 'react';
+
 import Post from '../lv.2/post'
 import Button from '../lv.2/button'
 
 import styled from 'styled-components';
 
+interface dataList{
+    list: any[]
+}
 
-const PostsBlock: FC = ({})  =>　{
+const PostsBlock: FC<dataList> = ({list})  =>　{
     return(
         <PostsListWrapper>
             <ListTitleBlock>
                 <ListTitle>過去の記事</ListTitle>
                 <DecorationWord src="Archive.svg" alt=""/>
             </ListTitleBlock>
-            <Post
-                thumbnailUrl="post_dummy.png"
-                title="テストタイトル1"
-                exerpt="テスト文章の差込ですよーテスト文章の差込ですよー"
-                category="テストカテゴリ"
-                linkUrl="#"
-            />
-            <Post
-                thumbnailUrl="post_dummy.png"
-                title="テストタイトル2"
-                exerpt="テスト文章の差込ですよーテスト文章の差込ですよー"
-                category="テストカテゴリ"
-                linkUrl="#"
-            />
-            <Post
-                thumbnailUrl="post_dummy.png"
-                title="テストタイトル3"
-                exerpt="テスト文章の差込ですよーテスト文章の差込ですよー"
-                category="テストカテゴリ"
-                linkUrl="#"
-                IslastPost
-            />
+            <>{list.map(({fields},index)=>{
+                return(
+                    <Post
+                        key = {index}
+                        thumbnailUrl="post_dummy.png"
+                        title={fields.title}
+                        excerpt={fields.excerpt}
+                        category={fields.category.fields.categoryName}
+                        linkUrl={ '/' + fields.category.fields.categorySlug + '/' + fields.slug}
+                    />
+                )
+                }
+            )}</>
             <ButtonBlock>
                 <Button text="全ての記事をみる"/>
             </ButtonBlock>
@@ -42,6 +37,7 @@ const PostsBlock: FC = ({})  =>　{
 }
 
 export default PostsBlock
+
 
 const PostsListWrapper = styled.div`
     width: 75%;

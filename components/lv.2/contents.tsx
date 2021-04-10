@@ -20,10 +20,11 @@ const ContentsWrapper = styled.div`
     border: solid 1px #DBD2C5;
     background-color: #FFFFFF;
     border-radius: 8px;
-    padding: 32px;
+    padding: 0 2rem 2rem 2rem;
 `
 
-const ContentsText = styled.p`
+const ContentsText = styled.div`
+    margin-top: -1rem;
     font-size: 15px;
     line-height: 2em;
 `

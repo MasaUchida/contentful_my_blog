@@ -6,17 +6,17 @@ import styled from 'styled-components';
 interface PostData {
     thumbnailUrl?: string;
     title?: string;
-    exerpt?: string;
+    excerpt?: string;
     category?: string;
     linkUrl?: string;
     IslastPost?: boolean;
 }
-const Post: FC<PostData> = ({thumbnailUrl,title,exerpt,category,linkUrl,IslastPost})  =>　{
+const Post: FC<PostData> = ({thumbnailUrl,title,excerpt,category,linkUrl,IslastPost})  =>　{
     return(
         <>
             <Card isLast = {IslastPost}>
-                <Link href={linkUrl}>
-                    <a>
+                <Link href={linkUrl} passHref>
+                    <LinkWrapper>
                         <BoxWrapper>
                             <ImageBox>
                                 <Category>{category}</Category>
@@ -26,12 +26,12 @@ const Post: FC<PostData> = ({thumbnailUrl,title,exerpt,category,linkUrl,IslastPo
                             </ImageBox>
                             <TextBox>
                                 <Title>{title}</Title>
-                                <Exerpt>{exerpt}</Exerpt>
+                                <Excerpt>{excerpt}</Excerpt>
                                 <DecorationButton></DecorationButton>
                                 <CreateDate>yyyy/mm/dd</CreateDate>
                             </TextBox>
                         </BoxWrapper>
-                    </a>
+                    </LinkWrapper>
                 </Link>
             </Card>
         </>
@@ -51,6 +51,20 @@ const Card = styled.article<{isLast: boolean}>`
     border: solid 1px #DBD2C5;
     overflow: hidden;
     z-index: 5;
+    opacity: 1;
+    transition: opacity 0.3s;
+    &:hover{
+        opacity: 0.5;
+        text-decoration: none;
+    }
+`
+
+const LinkWrapper = styled.a`
+    text-decoration: none;
+    &:hover{
+        text-decoration: none;
+        color: #000;
+    }
 `
 
 const BoxWrapper = styled.div`
@@ -91,7 +105,7 @@ const Title = styled.h3`
     font-size: 18px;
 `;
 
-const Exerpt = styled.p`
+const Excerpt = styled.p`
     font-size: 13px;
 `;
 
