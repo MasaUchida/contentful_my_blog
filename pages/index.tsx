@@ -14,7 +14,7 @@ import SideBarBlock from '../components/lv.3/sidebarblock';
 import styled from 'styled-components'
 
 
-const Home:FC = ({postList}:InferGetStaticPropsType<typeof getStaticProps>) => {
+const Home:FC = ({postList,sliderPostList}:InferGetStaticPropsType<typeof getStaticProps>) => {
 
 
     //console.log(postList)
@@ -24,7 +24,9 @@ const Home:FC = ({postList}:InferGetStaticPropsType<typeof getStaticProps>) => {
         <Layout layoutConf = 'HOME'>
             <main>
                 <KeyVisual>
-                    <Slider/>
+                    <Slider
+                        list={sliderPostList}
+                    />
                 </KeyVisual>
                 <MainSection>
                     <PostsBlock list = {postList}/>
@@ -43,16 +45,21 @@ export const getStaticProps :GetStaticProps = async () => {
 
     const postsObject = await getLimitPosts(10)
     const postList = postsObject.items
+    const sliderPostsObject = await getLimitPosts(5)
+    const sliderPostList = sliderPostsObject.items
+
+
     return{
         props: {
-            postList
+            postList,
+            sliderPostList
         }
     }
 }
 
 const KeyVisual = styled.section`
     width: 100%;
-    padding: 112px 0 64px 0;
+    padding: 7rem 0 6rem 0;
 `
 
 const MainSection = styled.section`

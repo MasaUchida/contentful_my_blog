@@ -28,8 +28,8 @@ const Header:FC<HeaderProps> = ({headerConf}) => {
             setchangeStyleFlug(false)
         }
 
-        console.log(scroll)
-        console.log(changeStyleFlug)
+        //console.log(scroll)
+        //console.log(changeStyleFlug)
 
         return () => {
             document.removeEventListener('scroll',onScroll)}
@@ -51,16 +51,6 @@ const Header:FC<HeaderProps> = ({headerConf}) => {
                         </LogoLink>
                     </Link>
                     <NavWapper>
-                        <Nav>
-                            <Link href="/tips" passHref>
-                                <NavLink
-                                    version = {headerConf}
-                                    isKeyVisual = {changeStyleFlug}
-                                >
-                                    デザインtips
-                                </NavLink>
-                            </Link>
-                        </Nav>
                         <Nav>
                             <Link href="/about" passHref>
                                 <NavLink
@@ -87,6 +77,16 @@ export default Header
 //            美大とデザイン
 //        </NavLink>
 //    </Link>
+//</Nav>
+//<Nav>
+//<Link href="/tips" passHref>
+//    <NavLink
+//        version = {headerConf}
+//        isKeyVisual = {changeStyleFlug}
+//    >
+//        デザインtips
+//    </NavLink>
+//</Link>
 //</Nav>
 //<Nav>
 //    <Link href="/ui-ux" passHref>

@@ -14,99 +14,57 @@ SwiperCore.use([Autoplay,Navigation,Pagination])
 
 
 interface SliderPostProps {
-    thumbnailUrl?: string;
-    title?: string;
-    category?: string;
-    linkUrl?: string;
+    list: any[]
 }
 
-const Slider: FC<SliderPostProps> = ({thumbnailUrl,title,category,linkUrl})  =>　{
+const Slider: FC<SliderPostProps> = ({list})  =>　{
+
+    //console.log(list)
+
     return(
         <>
             <Swiper
                 speed = {600}
-                spaceBetween={50}
+                spaceBetween={40}
                 slidesPerView={1}
+                centeredSlides
                 loop={true}
                 autoplay={{
                     delay: 3000,
-
+                    disableOnInteraction: false,
                 }}
-                navigation
                 pagination={{
                     clickable : true,
                     renderBullet: (index,className) => {
-                        return `<span class = ${className}>${index}</span>`
+                        return `<span class = ${className}></span>`
                     }
+                }}
+                breakpoints={{
+                    768: {slidesPerView :1.4}
                 }}
                 //onSlideChange={() => console.log('slide change')}
                 //onSwiper={(swiper) => console.log(swiper)}
             >
-                <SwiperSlide>
-                    <MainVisualArticle>
-                        <Link href="#">
-                            <a>
-                                <Category>カテゴリー</Category>
-                                <Figure>
-                                    <Thumbnail src={imageUrl} alt="#"/>
-                                </Figure>
-                                <MainTitle>
-                                    <Title>仮のテストタイトル1</Title>
-                                    <CreateDate>discription</CreateDate>
-                                </MainTitle>
-                            </a>
-                        </Link>
-                    </MainVisualArticle>
-                </SwiperSlide>
-                <SwiperSlide>
-                    <MainVisualArticle>
-                        <Link href="#">
-                            <a>
-                                <Category>カテゴリー</Category>
-                                <Figure>
-                                    <Thumbnail src={imageUrl} alt="#"/>
-                                </Figure>
-                                <MainTitle>
-                                    <Title>仮のテストタイトル2</Title>
-                                    <CreateDate>discription</CreateDate>
-                                </MainTitle>
-                            </a>
-                        </Link>
-                    </MainVisualArticle>
-                </SwiperSlide>
-                <SwiperSlide>
-                    <MainVisualArticle>
-                        <Link href="#">
-                            <a>
-                                <Category>カテゴリー</Category>
-                                <Figure>
-                                    <Thumbnail src={imageUrl} alt="#"/>
-                                </Figure>
-                                <MainTitle>
-                                    <Title>仮のテストタイトル3</Title>
-                                    <CreateDate>discription</CreateDate>
-                                </MainTitle>
-                            </a>
-                        </Link>
-                    </MainVisualArticle>
-                </SwiperSlide>
-                <SwiperSlide>
-                    <MainVisualArticle>
-                        <Link href="#">
-                            <a>
-                                <Category>カテゴリー</Category>
-                                <Figure>
-                                    <Thumbnail src={imageUrl} alt="#"/>
-                                </Figure>
-                                <MainTitle>
-                                    <Title>仮のテストタイトル4</Title>
-                                    <CreateDate>discription</CreateDate>
-                                </MainTitle>
-                            </a>
-                        </Link>
-
-                    </MainVisualArticle>
-                </SwiperSlide>
+                {list.map((item,index)=>{
+                    return(
+                        <SwiperSlide key={index}>
+                            <MainVisualArticle>
+                                <Link href={ '/' + item.fields.category.fields.categorySlug + '/' + item.fields.slug}>
+                                    <a>
+                                        <Category>{item.fields.category.fields.categoryName}</Category>
+                                        <Figure>
+                                            <Thumbnail src={item.fields.thumbnailImage ? item.fields.thumbnailImage.fields.file.url : imageUrl} alt="#"/>
+                                        </Figure>
+                                        <MainTitle>
+                                            <Title>{item.fields.title}</Title>
+                                            <CreateDate>{item.sys.createdAt}</CreateDate>
+                                        </MainTitle>
+                                    </a>
+                                </Link>
+                            </MainVisualArticle>
+                        </SwiperSlide>
+                    )
+                })}
             </Swiper>
         </>
     )

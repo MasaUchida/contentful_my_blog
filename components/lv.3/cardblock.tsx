@@ -5,33 +5,26 @@ import styled from 'styled-components';
 
 interface CardBlockProps{
     blockWidth?: number;
+    list?: any[]
 }
 
-const CardBlock: FC<CardBlockProps> = ({blockWidth})  =>　{
+const CardBlock: FC<CardBlockProps> = ({blockWidth,list})  =>　{
     return(
         <CardWrapper styleWidth = {blockWidth}>
-            <Card
-                thumbnailUrl="/post_dummy.png"
-                title = "カードテストタイトル"
-                exerpt = "これはカードテスト用の引用分です。\n改行がうまくいくかすごい心配。\nこれはカードテスト用の引用分です。\n改行がうまくいくかすごい心配"
-                category = "カードテストカテゴリ"
-                linkUrl = "#"
-            />
-            <Card
-                thumbnailUrl="/post_dummy.png"
-                title = "カードテストタイトル"
-                exerpt = "これはカードテスト用の引用分です。\n改行がうまくいくかすごい心配。\nこれはカードテスト用の引用分です。\n改行がうまくいくかすごい心配"
-                category = "カードテストカテゴリ"
-                linkUrl = "#"
-                IsNoPadding
-            />
-            <Card
-                thumbnailUrl="/post_dummy.png"
-                title = "カードテストタイトル"
-                exerpt = "これはカードテスト用の引用分です。\n改行がうまくいくかすごい心配。\nこれはカードテスト用の引用分です。\n改行がうまくいくかすごい心配"
-                category = "カードテストカテゴリ"
-                linkUrl = "#"
-            />
+            <>{list.map((item,index)=>{
+                return(
+                    <Card
+                        key = {index}
+                        thumbnailUrl={item.fields.thumbnailImage ? item.fields.thumbnailImage.fields.file.url : "post_dummy.png"}
+                        title = {item.fields.title}
+                        exerpt = {item.fields.excerpt}
+                        category = {item.fields.category.fields.categoryName}
+                        linkUrl = { '/' + item.fields.category.fields.categorySlug + '/' + item.fields.slug}
+                        createdAt = {item.sys.createdAt}
+                    />
+                )
+                }
+            )}</>
         </CardWrapper>
     )
 }

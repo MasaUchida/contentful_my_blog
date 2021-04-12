@@ -1,4 +1,5 @@
 import React, { FC } from 'react'
+import Image from 'next/image';
 import Link from 'next/link'
 import styled from 'styled-components';
 
@@ -9,9 +10,21 @@ interface PostData {
     excerpt?: string;
     category?: string;
     linkUrl?: string;
+    createdAt?: string;
     IslastPost?: boolean;
 }
-const Post: FC<PostData> = ({thumbnailUrl,title,excerpt,category,linkUrl,IslastPost})  =>　{
+
+
+const Post: FC<PostData> = ({thumbnailUrl,title,excerpt,category,linkUrl,createdAt,IslastPost})  =>　{
+
+    let cutExerpt = excerpt.slice(0,100)
+    if(cutExerpt.length == 100){
+        cutExerpt = cutExerpt + "..."
+    }
+
+    let cutDate = createdAt.slice(0,10)
+    cutDate = cutDate.replace(/-/g,'/')
+
     return(
         <>
             <Card isLast = {IslastPost}>
@@ -26,9 +39,9 @@ const Post: FC<PostData> = ({thumbnailUrl,title,excerpt,category,linkUrl,IslastP
                             </ImageBox>
                             <TextBox>
                                 <Title>{title}</Title>
-                                <Excerpt>{excerpt}</Excerpt>
-                                <DecorationButton></DecorationButton>
-                                <CreateDate>yyyy/mm/dd</CreateDate>
+                                <Excerpt>{cutExerpt}</Excerpt>
+                                <DecorationButton>▶︎</DecorationButton>
+                                <CreateDate>{cutDate}</CreateDate>
                             </TextBox>
                         </BoxWrapper>
                     </LinkWrapper>
@@ -88,11 +101,14 @@ const Category = styled.aside`
 const Figure = styled.figure`
     margin: 0;
     width: 240px;
+    height: 100%;
 `;
 
 const Thumbnail = styled.img`
     width: 100%;
+    height: 100%;
     object-fit: cover;
+    object-position: right;
 `;
 
 const TextBox = styled.div`
@@ -120,5 +136,8 @@ const DecorationButton = styled.div`
     height: 24px;
     right: 8px;
     bottom: 8px;
+    text-align: center;
+    line-height: 24px;
+    color: #fff;
     background-color: #00A79B;
 `

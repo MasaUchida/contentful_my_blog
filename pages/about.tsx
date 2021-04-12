@@ -1,7 +1,9 @@
 import { FC } from 'react';
 import Layout from '../components/layout';
-import Header from '../components/lv.3/header'
 import Card from '../components/lv.2/card';
+import { GetStaticProps , InferGetStaticPropsType } from 'next'
+
+import { getPostsByCategory,} from '../lib/getposts';
 
 import styled from 'styled-components';
 
@@ -10,10 +12,12 @@ const profileSVG = '/Profile.svg'
 const portfolioSVG = '/Portfolio.svg'
 
 
-const About : FC = ({})  =>　{
+const About : FC = ({postList}:InferGetStaticPropsType<typeof getStaticProps>)  =>　{
+
+    //console.log(postList)
+
     return(
         <Layout>
-            <Header headerConf = 'HOME'/>
             <ProfileSection>
                 <ProfileWrapper>
                     <ProfileBg src = {profileSVG}/>
@@ -48,54 +52,21 @@ const About : FC = ({})  =>　{
                         <PortfolioBg src={portfolioSVG} alt=""/>
                         <PortfolioTitle>ポートフォリオ</PortfolioTitle>
                         <CardsWrapper>
-                            <Card
-                                thumbnailUrl="/post_dummy.png"
-                                title = "カードテストタイトル"
-                                exerpt = "これはカードテスト用の引用分です。\n改行がうまくいくかすごい心配。\nこれはカードテスト用の引用分です。\n改行がうまくいくかすごい心配"
-                                category = "カードテストカテゴリ"
-                                linkUrl = "#"
-                                cardWidth = {31}
-                            />
-                            <Card
-                                thumbnailUrl="/post_dummy.png"
-                                title = "カードテストタイトル"
-                                exerpt = "これはカードテスト用の引用分です。\n改行がうまくいくかすごい心配。\nこれはカードテスト用の引用分です。\n改行がうまくいくかすごい心配"
-                                category = "カードテストカテゴリ"
-                                linkUrl = "#"
-                                cardWidth = {31}
-                            />
-                            <Card
-                                thumbnailUrl="/post_dummy.png"
-                                title = "カードテストタイトル"
-                                exerpt = "これはカードテスト用の引用分です。\n改行がうまくいくかすごい心配。\nこれはカードテスト用の引用分です。\n改行がうまくいくかすごい心配"
-                                category = "カードテストカテゴリ"
-                                linkUrl = "#"
-                                cardWidth = {31}
-                            />
-                            <Card
-                                thumbnailUrl="/post_dummy.png"
-                                title = "カードテストタイトル"
-                                exerpt = "これはカードテスト用の引用分です。\n改行がうまくいくかすごい心配。\nこれはカードテスト用の引用分です。\n改行がうまくいくかすごい心配"
-                                category = "カードテストカテゴリ"
-                                linkUrl = "#"
-                                cardWidth = {31}
-                            />
-                            <Card
-                                thumbnailUrl="/post_dummy.png"
-                                title = "カードテストタイトル"
-                                exerpt = "これはカードテスト用の引用分です。\n改行がうまくいくかすごい心配。\nこれはカードテスト用の引用分です。\n改行がうまくいくかすごい心配"
-                                category = "カードテストカテゴリ"
-                                linkUrl = "#"
-                                cardWidth = {31}
-                            />
-                            <Card
-                                thumbnailUrl="/post_dummy.png"
-                                title = "カードテストタイトル"
-                                exerpt = "これはカードテスト用の引用分です。\n改行がうまくいくかすごい心配。\nこれはカードテスト用の引用分です。\n改行がうまくいくかすごい心配"
-                                category = "カードテストカテゴリ"
-                                linkUrl = "#"
-                                cardWidth = {31}
-                            />
+                        <>{postList.map(({fields},index)=>{
+                                return(
+                                    <Card
+                                        key = {index}
+                                        thumbnailUrl={fields.thumbnailImage ? fields.thumbnailImage.fields.file.url : "post_dummy.png"}
+                                        title = {fields.title}
+                                        exerpt = {fields.excerpt}
+                                        category = {fields.category.fields.categoryName}
+                                        linkUrl = { '/' + fields.category.fields.categorySlug + '/' + fields.slug}
+                                        cardWidth = {31}
+                                    />
+                                )
+                                }
+                            )}
+                        </>
                         </CardsWrapper>
                     </PortfolioWrapper>
             </PortfolioSection>
@@ -104,6 +75,16 @@ const About : FC = ({})  =>　{
 }
 export default About
 
+export const getStaticProps :GetStaticProps = async () => {
+
+    const postList = await getPostsByCategory("portfolio")
+
+    return{
+        props: {
+            postList,
+        }
+    }
+}
 
 
 const ProfileSection = styled.section`

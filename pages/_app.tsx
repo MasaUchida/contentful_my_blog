@@ -1,8 +1,9 @@
 import App from 'next/app';
 
 import '../styles/reset.css';
-import '../styles/globals.css'
-import '../styles/modify.css'
+import '../styles/globals.css';
+import '../styles/modify.css';
+import '../styles/slider.scss';
 import 'swiper/swiper.scss';
 import 'swiper/components/navigation/navigation.scss';
 import 'swiper/components/pagination/pagination.scss';

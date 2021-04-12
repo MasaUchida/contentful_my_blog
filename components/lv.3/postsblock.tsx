@@ -10,31 +10,38 @@ interface dataList{
 }
 
 const PostsBlock: FC<dataList> = ({list})  =>　{
+
+    //console.log(list)
+    //console.log(list[0].fields.thumbnailImage.fields.file.url)
+
     return(
         <PostsListWrapper>
             <ListTitleBlock>
                 <ListTitle>過去の記事</ListTitle>
                 <DecorationWord src="Archive.svg" alt=""/>
             </ListTitleBlock>
-            <>{list.map(({fields},index)=>{
+            <>{list.map((item,index)=>{
                 return(
                     <Post
                         key = {index}
-                        thumbnailUrl="post_dummy.png"
-                        title={fields.title}
-                        excerpt={fields.excerpt}
-                        category={fields.category.fields.categoryName}
-                        linkUrl={ '/' + fields.category.fields.categorySlug + '/' + fields.slug}
+                        thumbnailUrl={item.fields.thumbnailImage ? item.fields.thumbnailImage.fields.file.url : "post_dummy.png"}
+                        title={item.fields.title}
+                        excerpt={item.fields.excerpt}
+                        category={item.fields.category.fields.categoryName}
+                        linkUrl={ '/' + item.fields.category.fields.categorySlug + '/' + item.fields.slug}
+                        createdAt ={item.sys.createdAt}
                     />
                 )
                 }
             )}</>
-            <ButtonBlock>
-                <Button text="全ての記事をみる"/>
-            </ButtonBlock>
+
         </PostsListWrapper>
     )
 }
+
+//<ButtonBlock>
+//    <Button text="全ての記事をみる"/>
+//</ButtonBlock>
 
 export default PostsBlock
 

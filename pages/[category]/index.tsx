@@ -1,21 +1,26 @@
 import { FC } from 'react'
 import { useRouter } from 'next/router'
+import { GetStaticProps , InferGetStaticPropsType , GetStaticPaths } from 'next'
 
 import Layout from '../../components/layout'
 import CardBlock from '../../components/lv.3/cardblock'
 import SideBarBlock from '../../components/lv.3/sidebarblock'
 
+import { getPostsByCategory ,  getAllCategorySlugs } from '../../lib/getposts';
+
 import styled from 'styled-components'
 
 const imageUrl = '/post_dummy.png'
 
-interface Props {
-    hoge: any;
-}
 
-const Category: FC<Props> = ({})  =>　{
+const Category: FC = ({postList}:InferGetStaticPropsType<typeof getStaticProps>)  =>　{
+
     const router = useRouter()
     const pageURI = router.query // 返り値{ category: "academic-design" }
+
+    //console.log(pageURI)
+    //console.log(postList)
+
     let titleText
 
     switch (pageURI.category) {
@@ -24,6 +29,12 @@ const Category: FC<Props> = ({})  =>　{
         break;
         case 'tips':
             titleText = 'デザインtips'
+        break;
+        case 'portfolio':
+            titleText = 'ポートフォリオ'
+        break;
+        case 'ui-ux':
+            titleText = 'UI/UXデザイン'
         break;
         default:
             console.log(`スイッチ失敗`);
@@ -35,13 +46,40 @@ const Category: FC<Props> = ({})  =>　{
                 <Title>{titleText}</Title>
             </KeyVisualSection>
             <MainSection>
-                <CardBlock blockWidth = {66}/>
+                <CardBlock
+                    blockWidth = {66}
+                    list = {postList}
+                />
                 <SideBarBlock blockWidth = {33}/>
             </MainSection>
         </Layout>
     )
 }
 export default Category
+
+export const getStaticPaths: GetStaticPaths = async () => {
+    const categoryList = await getAllCategorySlugs()
+
+    const paths = categoryList.map((item) => `/${item}`)
+
+    //pathsがstring[] → [ '/academic-design/markdown', '/ui-ux/post-model-test2' ]
+    return{
+        paths,
+        fallback: false,
+    }
+}
+
+export const getStaticProps :GetStaticProps = async ({params}) => {
+
+    const postList = await getPostsByCategory(`${params.category}`)
+
+    return{
+        props: {
+            postList,
+        }
+    }
+}
+
 
 const MainSection = styled.section`
     display: flex;

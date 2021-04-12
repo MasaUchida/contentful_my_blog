@@ -12,7 +12,7 @@ interface ButtonProps {
 const Button: FC<ButtonProps> = ({text,iconUrl})  =>　{
     return(
         <ButtonBody>
-            <Link href="#">
+            <Link href="/">
                 <a className = "button-link">
                     <ButtonContentsWrapper icon={iconUrl}>
                         {iconUrl && <img src=""/>}
