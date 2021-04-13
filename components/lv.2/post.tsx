@@ -1,5 +1,4 @@
 import React, { FC } from 'react'
-import Image from 'next/image';
 import Link from 'next/link'
 import styled from 'styled-components';
 
@@ -22,12 +21,15 @@ const Post: FC<PostData> = ({thumbnailUrl,title,excerpt,category,linkUrl,created
         cutExerpt = cutExerpt + "..."
     }
 
-    let cutDate = createdAt.slice(0,10)
-    cutDate = cutDate.replace(/-/g,'/')
+    let cutDate = ''
+    if(createdAt){
+        cutDate = createdAt.slice(0,10)
+        cutDate = cutDate.replace(/-/g,'/')
+    }
 
     return(
         <>
-            <Card isLast = {IslastPost}>
+            <PostBody isLast = {IslastPost}>
                 <Link href={linkUrl} passHref>
                     <LinkWrapper>
                         <BoxWrapper>
@@ -40,13 +42,15 @@ const Post: FC<PostData> = ({thumbnailUrl,title,excerpt,category,linkUrl,created
                             <TextBox>
                                 <Title>{title}</Title>
                                 <Excerpt>{cutExerpt}</Excerpt>
-                                <DecorationButton>▶︎</DecorationButton>
-                                <CreateDate>{cutDate}</CreateDate>
+                                <Hoge>
+                                    <CreateDate>{cutDate !=='' ? cutDate : 'hoge'}</CreateDate>
+                                    <DecorationButton>▶︎</DecorationButton>
+                                </Hoge>
                             </TextBox>
                         </BoxWrapper>
                     </LinkWrapper>
                 </Link>
-            </Card>
+            </PostBody>
         </>
     )
 }
@@ -54,10 +58,20 @@ const Post: FC<PostData> = ({thumbnailUrl,title,excerpt,category,linkUrl,created
 export default Post
 
 
+const Hoge = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    left: 2rem;
+    right: 8px;
+    bottom: 8px;
+`
 
-const Card = styled.article<{isLast: boolean}>`
+const PostBody = styled.article<{isLast: boolean}>`
     position: relative;
     width: 100%;
+    height: 160px;
     margin-bottom: ${({ isLast }) => isLast ? 0 : 24}px;
     border-radius: 8px;
     background-color: #FFF;
@@ -82,6 +96,8 @@ const LinkWrapper = styled.a`
 
 const BoxWrapper = styled.div`
     display: flex;
+    height: 100%;
+    box-sizing: border-box;
 `
 
 const ImageBox = styled.div`
@@ -113,7 +129,7 @@ const Thumbnail = styled.img`
 
 const TextBox = styled.div`
     position: relative;
-    padding: 2rem 2rem 0 2rem;
+    padding: 1.5rem 2rem 0 2rem;
     width: 100%;
 `;
 
@@ -127,15 +143,13 @@ const Excerpt = styled.p`
 
 const CreateDate = styled.p`
     font-size: 12px;
+    margin: 0;
     color: rgba(0,0,0,0.54);
 `
 
 const DecorationButton = styled.div`
-    position: absolute;
     width: 24px;
     height: 24px;
-    right: 8px;
-    bottom: 8px;
     text-align: center;
     line-height: 24px;
     color: #fff;

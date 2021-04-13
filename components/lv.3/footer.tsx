@@ -31,6 +31,8 @@ const Footer:FC = () => {
 export default Footer
 
 const FooterBody = styled.footer`
+    margin-top: 5rem;
+    padding: 2rem 9rem;
     height: 360px;
     background-color: #FFF9EC;
 `
@@ -38,7 +40,6 @@ const FooterBody = styled.footer`
 const FooterWrapper = styled.div`
     margin: 0 auto;
     max-width: 1200px;
-    padding: 0 5rem;
 `
 
 const FooterIconLink = styled.a`

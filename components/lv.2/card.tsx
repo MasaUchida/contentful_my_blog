@@ -7,10 +7,10 @@ import styled from 'styled-components';
 interface cardProps {
     thumbnailUrl: string;
     title: string;
-    exerpt?: string;
+    exerpt: string;
     category: string;
     linkUrl: string;
-    createdAt?: string;
+    createdAt: string;
     IsNoPadding?: boolean;
     cardWidth?: number;
 }
@@ -37,9 +37,11 @@ const Card: FC<cardProps> = ({thumbnailUrl,title,exerpt,category,linkUrl,created
                     <TextBox>
                         <Title>{title}</Title>
                         <Exerpt>{cutExerpt}</Exerpt>
+                            <CardBottomWrapper>
                                 <CreateDate>{cutDate}</CreateDate>
                                 <CardBottomDecoration/>
                                 <DecorationButton>▶︎</DecorationButton>
+                            </CardBottomWrapper>
                     </TextBox>
                 </LinkWrapper>
             </Link>
@@ -54,6 +56,7 @@ const CardBody = styled.article<{width: number}>`
     overflow: hidden;
     margin-bottom: 24px;
     width: ${({width}) => width || 47 }%;
+    height: 460px;
     border-radius: 8px;
     background-color: #FFFFFF;
     box-shadow: 0 0 16px rgba(0,0,0,0.12);
@@ -126,27 +129,17 @@ const Exerpt = styled.p`
 
 const CardBottomWrapper = styled.div`
     position: absolute;
-    bottom: 1.5rem;
-    &::before{
-        content: '';
-        display: table;
-    }
-    &::after{
-        content: '';
-        display: table;
-    }
-`
-
-const CardBottomContainer = styled.div`
+    left: 1.5rem;
+    right: 1.5rem;
     display: flex;
+    justify-content: space-between;
     align-items: center;
+    bottom: 1rem;
 `
 
 const CardBottomDecoration = styled.span`
-    position: absolute;
-    bottom: 20px;
-    left: 100px;
-    right: 48px;
+    flex: 1;
+    margin: 0 0.5rem;
     display: inline-block;
     content: '';
     height: 1px;
@@ -154,20 +147,14 @@ const CardBottomDecoration = styled.span`
 `
 
 const CreateDate = styled.span`
-    position: absolute;
-    left: 24px;
-    bottom: 8px;
     display: inline-block;
     font-size: 12px;
     line-height: 24px;
-    color: rgba(0,0,0,0.54);
+    color: #00A79B;
     margin: 0;
 `
 
 const DecorationButton = styled.div`
-    position: absolute;
-    bottom: 8px;
-    right: 12px;
     display: inline-block;
     color: #fff;
     text-align: center;

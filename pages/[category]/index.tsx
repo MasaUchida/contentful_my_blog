@@ -59,7 +59,6 @@ export default Category
 
 export const getStaticPaths: GetStaticPaths = async () => {
     const categoryList = await getAllCategorySlugs()
-
     const paths = categoryList.map((item) => `/${item}`)
 
     //pathsがstring[] → [ '/academic-design/markdown', '/ui-ux/post-model-test2' ]
@@ -70,7 +69,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 export const getStaticProps :GetStaticProps = async ({params}) => {
-
     const postList = await getPostsByCategory(`${params.category}`)
 
     return{

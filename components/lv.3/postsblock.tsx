@@ -10,10 +10,6 @@ interface dataList{
 }
 
 const PostsBlock: FC<dataList> = ({list})  =>　{
-
-    //console.log(list)
-    //console.log(list[0].fields.thumbnailImage.fields.file.url)
-
     return(
         <PostsListWrapper>
             <ListTitleBlock>

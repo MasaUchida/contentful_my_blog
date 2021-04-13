@@ -1,7 +1,5 @@
 import {FC} from 'react';
 import { GetStaticProps , InferGetStaticPropsType } from 'next'
-import remark from 'remark'
-import html from 'remark-html'
 
 import { getLimitPosts } from '../lib/getposts';
 
@@ -37,6 +35,8 @@ const Home:FC = ({postList,sliderPostList}:InferGetStaticPropsType<typeof getSta
     )
 }
 
+export default Home;
+
 //  <IconLinkSection>
 //      <IconsList/>
 //  </IconLinkSection>
@@ -47,7 +47,6 @@ export const getStaticProps :GetStaticProps = async () => {
     const postList = postsObject.items
     const sliderPostsObject = await getLimitPosts(5)
     const sliderPostList = sliderPostsObject.items
-
 
     return{
         props: {
@@ -72,5 +71,3 @@ const MainSection = styled.section`
 const IconLinkSection = styled.section`
     margin-bottom: 80px;
 `
-
-export default Home;

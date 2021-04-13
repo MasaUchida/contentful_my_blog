@@ -28,14 +28,9 @@ const Header:FC<HeaderProps> = ({headerConf}) => {
             setchangeStyleFlug(false)
         }
 
-        //console.log(scroll)
-        //console.log(changeStyleFlug)
-
         return () => {
             document.removeEventListener('scroll',onScroll)}
         }, [scroll])
-
-    //const linkTextColor: 'HOME' | 'POSTPAGE' = headerConf;
 
 
     return (
@@ -121,7 +116,7 @@ const HeaderBody = styled.header<{version : 'HOME' | 'POSTPAGE', isKeyVisual : b
     height: 80px;
     border-bottom: solid 1px ${({version}) => version=='HOME' ? 'rgba(0,0,0,0.12)' : 'rgba(255,255,255,0.7)' } ;
     background-color: ${({version,isKeyVisual}) => version=='HOME' ? isKeyVisual ? 'rgba(255,255,255,0)' : 'rgba(255,255,255,1)' : isKeyVisual ? 'rgba(0,0,0,0)' : 'rgba(0,0,0,0.3)' };
-    backdrop-filter: blur(3px);
+    backdrop-filter: blur(5px);
     transition: background-color 0.4s ease-in-out;
 `
 

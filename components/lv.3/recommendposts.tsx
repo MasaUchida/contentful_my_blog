@@ -11,23 +11,22 @@ interface RecommendPostsProps{
 }
 
 const RecommendPosts: FC<RecommendPostsProps> = ({list,slug})  =>　{
-    const filteredList = list.filter((a : any)=>{ return a.fields.slug != slug})　//開いた記事そのものとのダブりをフィルタリング
+    const filteredList = list.filter((item : any)=>{ return item.fields.slug != slug})　//開いた記事そのものとのダブりをフィルタリング
 
     return(
         <RecommendSection>
             <RecommendWrapper>
                 <h2>関連記事</h2>
-                    {filteredList.map((post :any,index)=>{
-                        const cutExcerpt = `${post.fields.excerpt}`.substr(0,95) + "..."
-
+                    {filteredList.map((item :any,index)=>{
                         return(
                             <Post
                                 key={index}
-                                thumbnailUrl = "/post_dummy.png"
-                                title = {post.fields.title}
-                                excerpt = {cutExcerpt}
-                                category = {post.fields.category.fields.categoryName}
-                                linkUrl = {`/${post.fields.category.fields.categorySlug}/${post.fields.slug}`}
+                                thumbnailUrl = {item.fields.thumbnailImage ? item.fields.thumbnailImage.fields.file.url : "/post_dummy.png"}
+                                title = {item.fields.title}
+                                excerpt = {item.fields.excerpt}
+                                category = {item.fields.category.fields.categoryName}
+                                linkUrl = {`/${item.fields.category.fields.categorySlug}/${item.fields.slug}`}
+                                createdAt = { item.sys.createdAt }
                             />
                         )
                     })}

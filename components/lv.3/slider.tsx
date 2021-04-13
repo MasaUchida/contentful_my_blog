@@ -1,14 +1,10 @@
-import { FC } from 'react';
+import { FC  , useState , useEffect } from 'react';
 import Link from 'next/link'
 import { Swiper, SwiperSlide } from 'swiper/react';
-import SwiperCore,{ Autoplay,Navigation,Pagination }from 'swiper'
+import SwiperCore,{ Autoplay,Navigation,Pagination } from 'swiper'
 import styled from 'styled-components';
 
-const imageUrl = 'post_dummy.png'
-
-
-
-//import 'swiper/components/scrollbar/scrollbar.scss';
+const imageUrl = '/post_dummy.png'
 
 SwiperCore.use([Autoplay,Navigation,Pagination])
 
@@ -19,11 +15,16 @@ interface SliderPostProps {
 
 const Slider: FC<SliderPostProps> = ({list})  =>　{
 
-    //console.log(list)
+    const [isClient, setIsClient] = useState(false)
+
+    useEffect(() => {
+        setIsClient(true)
+    }, [])
 
     return(
         <>
             <Swiper
+                key = {isClient ? 'client' : 'server'}
                 speed = {600}
                 spaceBetween={40}
                 slidesPerView={1}
@@ -39,9 +40,7 @@ const Slider: FC<SliderPostProps> = ({list})  =>　{
                         return `<span class = ${className}></span>`
                     }
                 }}
-                breakpoints={{
-                    768: {slidesPerView :1.4}
-                }}
+                breakpoints={isClient ? {768: {slidesPerView :1.4}} : { }}
                 //onSlideChange={() => console.log('slide change')}
                 //onSwiper={(swiper) => console.log(swiper)}
             >
@@ -49,8 +48,8 @@ const Slider: FC<SliderPostProps> = ({list})  =>　{
                     return(
                         <SwiperSlide key={index}>
                             <MainVisualArticle>
-                                <Link href={ '/' + item.fields.category.fields.categorySlug + '/' + item.fields.slug}>
-                                    <a>
+                                <Link href={ '/' + item.fields.category.fields.categorySlug + '/' + item.fields.slug} passHref>
+                                    <MainVisualLink>
                                         <Category>{item.fields.category.fields.categoryName}</Category>
                                         <Figure>
                                             <Thumbnail src={item.fields.thumbnailImage ? item.fields.thumbnailImage.fields.file.url : imageUrl} alt="#"/>
@@ -59,7 +58,7 @@ const Slider: FC<SliderPostProps> = ({list})  =>　{
                                             <Title>{item.fields.title}</Title>
                                             <CreateDate>{item.sys.createdAt}</CreateDate>
                                         </MainTitle>
-                                    </a>
+                                    </MainVisualLink>
                                 </Link>
                             </MainVisualArticle>
                         </SwiperSlide>
@@ -69,19 +68,34 @@ const Slider: FC<SliderPostProps> = ({list})  =>　{
         </>
     )
 }
+
 export default Slider
 
 const MainVisualArticle = styled.article`
     position: relative;
     margin: 0 auto;
-    //width: 960px;
     height: 480px;
     border-radius: 8px;
 `
-const CustomSliderPagenation=styled.span`
-    width: 25%;
-    height: 8px;
-    background-color: #00A79B;
+
+const MainVisualLink = styled.a`
+    &:hover{
+        color: rgba(0,0,0,0.87);
+    }
+    &::before{
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: rgba(0,0,0,0.26);
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+    &:hover::before{
+        opacity: 1;
+    }
 `
 
 const MainTitle = styled.div`
@@ -90,6 +104,7 @@ const MainTitle = styled.div`
     background-color: #FFF;
     left: 0;
     bottom: 40px;
+    z-index: 10;
     &::before{
         content: '';
         position: absolute;

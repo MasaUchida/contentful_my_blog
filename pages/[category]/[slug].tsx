@@ -11,11 +11,6 @@ import PortfolioPage from '../../components/lv.4/portfoliopage';
 
 import { getAllPosts , getPostBySlug , getPostsByCategory } from '../../lib/getposts';
 
-const imageUrl = '/post_dummy.png'
-
-
-
-//interface contentsPageProps{}を作る
 
 const Page: FC = ({field,createdAt,updatedAt,mainText,categoryPostList}:InferGetStaticPropsType<typeof getStaticProps>)  =>　{
 
@@ -68,7 +63,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
     const post = await getPostBySlug(postSlug)//slugでひっかけて記事の内容を取得
     const categoryPosts = await getPostsByCategory(postCategory)
-
 
     //記事の内容を展開
     const postField = post[0].fields

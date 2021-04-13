@@ -13,9 +13,6 @@ const portfolioSVG = '/Portfolio.svg'
 
 
 const About : FC = ({postList}:InferGetStaticPropsType<typeof getStaticProps>)  =>　{
-
-    //console.log(postList)
-
     return(
         <Layout>
             <ProfileSection>
@@ -52,15 +49,16 @@ const About : FC = ({postList}:InferGetStaticPropsType<typeof getStaticProps>)  
                         <PortfolioBg src={portfolioSVG} alt=""/>
                         <PortfolioTitle>ポートフォリオ</PortfolioTitle>
                         <CardsWrapper>
-                        <>{postList.map(({fields},index)=>{
+                        <>{postList.map((item,index)=>{
                                 return(
                                     <Card
                                         key = {index}
-                                        thumbnailUrl={fields.thumbnailImage ? fields.thumbnailImage.fields.file.url : "post_dummy.png"}
-                                        title = {fields.title}
-                                        exerpt = {fields.excerpt}
-                                        category = {fields.category.fields.categoryName}
-                                        linkUrl = { '/' + fields.category.fields.categorySlug + '/' + fields.slug}
+                                        thumbnailUrl={item.fields.thumbnailImage ? item.fields.thumbnailImage.fields.file.url : "post_dummy.png"}
+                                        title = {item.fields.title}
+                                        exerpt = {item.fields.excerpt}
+                                        category = {item.fields.category.fields.categoryName}
+                                        linkUrl = { '/' + item.fields.category.fields.categorySlug + '/' + item.fields.slug}
+                                        createdAt = {item.sys.createdAt}
                                         cardWidth = {31}
                                     />
                                 )
