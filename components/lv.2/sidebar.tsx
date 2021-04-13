@@ -19,11 +19,11 @@ const Sidebar: FC<SideBarProps> = ({contentsPage})  =>　{
             </div>
             <div>
                 <h3>打田雅俊</h3>
-                <p>自己紹介的な文章<br/>自己紹介的な文章<br/>自己紹介的な文章</p>
-                <Link href="#">
-                    <a>
+                <Bio>大学時代からずっとデザイナー<br/>元インダストリアルデザイナー<br/>現UI/UXデザイナー</Bio>
+                <Link href="/about" passHref>
+                    <BioLink>
                         自己紹介へ
-                    </a>
+                    </BioLink>
                 </Link>
             </div>
         </SideBarWrapper>
@@ -53,4 +53,14 @@ const MyProfileImage = styled.img`
     margin-bottom: 32px;
     height: 120px;
     width: 120px;
+`
+
+const Bio = styled.p`
+    font-size: 13px;
+    line-height: 2em;
+`
+
+const BioLink = styled.a`
+    color: #0056b3;
+    text-decoration: underline;
 `

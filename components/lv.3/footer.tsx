@@ -15,10 +15,10 @@ const Footer:FC = () => {
                     </Link>
                     <FooterList>
                         <li>
-                            <Link href="/about">
-                                <a>
+                            <Link href="/about" passHref>
+                                <ListLink>
                                     about
-                                </a>
+                                </ListLink>
                             </Link>
                         </li>
                     </FooterList>
@@ -47,6 +47,7 @@ const FooterIconLink = styled.a`
     font-weight: 600;
     &:hover{
         text-decoration: none;
+        color: inherit;
     }
 `
 
@@ -55,4 +56,11 @@ const FooterList = styled.ul`
     width: 25%;
     padding: 0;
     list-style: none;
+`
+
+const ListLink = styled.a`
+    &:hover{
+        text-decoration: none;
+        color: inherit;
+    }
 `
