@@ -80,7 +80,8 @@ export const getStaticProps :GetStaticProps = async () => {
     return{
         props: {
             postList,
-        }
+        },
+        revalidate: 5,
     }
 }
 

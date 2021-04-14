@@ -78,6 +78,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
             updatedAt: postUpdatedAt,
             mainText: htmlText,
             categoryPostList: categoryPosts
-        }
+        },
+        revalidate: 5,
     }
 }

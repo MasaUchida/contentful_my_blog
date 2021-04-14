@@ -52,7 +52,8 @@ export const getStaticProps :GetStaticProps = async () => {
         props: {
             postList,
             sliderPostList
-        }
+        },
+        revalidate: 1,
     }
 }
 
