@@ -11,8 +11,11 @@ const Layout: FC<LayoutProps> = ({children,layoutConf})  =>　{
     return(
         <>
             <Head>
-                <title>Create Next App</title>
+                <title>Uchida Design</title>
                 <link rel="icon" href="/favicon.ico" />
+                <meta name="description" content="元インダストリアルデザイナー、現UI/UXデザイナーの日々の学びやtipsをお届けするブログ"></meta>
+                <meta charSet="utf-8"></meta>
+                <meta name="viewport" content="width=device-width,initial-scale=1"></meta>
             </Head>
             <Header headerConf = {layoutConf}/>
                 {children}
