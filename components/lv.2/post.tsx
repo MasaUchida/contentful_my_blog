@@ -9,12 +9,12 @@ interface PostData {
     excerpt?: string;
     category?: string;
     linkUrl?: string;
-    createdAt?: string;
+    updatedAt?: string;
     IslastPost?: boolean;
 }
 
 
-const Post: FC<PostData> = ({thumbnailUrl,title,excerpt,category,linkUrl,createdAt,IslastPost})  =>　{
+const Post: FC<PostData> = ({thumbnailUrl,title,excerpt,category,linkUrl,updatedAt,IslastPost})  =>　{
 
     let cutExerpt = excerpt.slice(0,100)
     if(cutExerpt.length == 100){
@@ -22,8 +22,8 @@ const Post: FC<PostData> = ({thumbnailUrl,title,excerpt,category,linkUrl,created
     }
 
     let cutDate = ''
-    if(createdAt){
-        cutDate = createdAt.slice(0,10)
+    if(updatedAt){
+        cutDate = updatedAt.slice(0,10)
         cutDate = cutDate.replace(/-/g,'/')
     }
 
@@ -43,7 +43,7 @@ const Post: FC<PostData> = ({thumbnailUrl,title,excerpt,category,linkUrl,created
                                 <Title>{title}</Title>
                                 <Excerpt>{cutExerpt}</Excerpt>
                                 <Hoge>
-                                    <CreateDate>{cutDate !=='' ? cutDate : 'hoge'}</CreateDate>
+                                    <UpdateDate>最終更新日：{cutDate !=='' ? cutDate : 'hoge'}</UpdateDate>
                                     <DecorationButton>▶︎</DecorationButton>
                                 </Hoge>
                             </TextBox>
@@ -141,7 +141,7 @@ const Excerpt = styled.p`
     font-size: 13px;
 `;
 
-const CreateDate = styled.p`
+const UpdateDate = styled.p`
     font-size: 12px;
     margin: 0;
     color: rgba(0,0,0,0.54);

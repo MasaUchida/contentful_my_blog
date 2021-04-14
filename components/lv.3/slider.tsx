@@ -21,6 +21,9 @@ const Slider: FC<SliderPostProps> = ({list})  =>　{
         setIsClient(true)
     }, [])
 
+
+
+
     return(
         <>
             <Swiper
@@ -45,6 +48,13 @@ const Slider: FC<SliderPostProps> = ({list})  =>　{
                 //onSwiper={(swiper) => console.log(swiper)}
             >
                 {list.map((item,index)=>{
+
+                    let cutDate = item.sys.updatedAt
+                    if(cutDate){
+                        cutDate = cutDate.slice(0,10)
+                        cutDate = cutDate.replace(/-/g,'/')
+                    }
+
                     return(
                         <SwiperSlide key={index}>
                             <MainVisualArticle>
@@ -56,7 +66,7 @@ const Slider: FC<SliderPostProps> = ({list})  =>　{
                                         </Figure>
                                         <MainTitle>
                                             <Title>{item.fields.title}</Title>
-                                            <CreateDate>{item.sys.createdAt}</CreateDate>
+                                            <CreateDate>最終更新日：{cutDate}</CreateDate>
                                         </MainTitle>
                                     </MainVisualLink>
                                 </Link>

@@ -18,6 +18,18 @@ interface Props{
 }
 
 const ContentsPage: FC<Props> = ({contentField,contentCreatedAt,contentUpdatedAt,contentMainText})  =>　{
+
+    let cutCreatedDate = ''
+    let cutUpdatedDate = ''
+    if(contentCreatedAt){
+        cutCreatedDate = contentCreatedAt.slice(0,10)
+        cutCreatedDate = cutCreatedDate.replace(/-/g,'/')
+    }
+    if(contentUpdatedAt){
+        cutUpdatedDate = contentUpdatedAt.slice(0,10)
+        cutUpdatedDate = cutUpdatedDate.replace(/-/g,'/')
+    }
+
     return(
         <ContentsPageMain>
             <KeyImageSection>
@@ -25,7 +37,7 @@ const ContentsPage: FC<Props> = ({contentField,contentCreatedAt,contentUpdatedAt
                     <h2>{contentField.title}</h2>
                     <Tag size="LARGE">{contentField.category.fields.categoryName}</Tag>
                     <div>
-                        <span>記事作成日 {contentCreatedAt} </span><span>最終更新日 {contentUpdatedAt}</span>
+                        <span>記事作成日 {cutCreatedDate} </span><span>最終更新日 {cutUpdatedDate}</span>
                     </div>
                 </TitleBlock>
             </KeyImageSection>
