@@ -20,6 +20,19 @@ interface PortfolioProps{
 
 const PortfolioPage: FC<PortfolioProps> = ({portfolioField,portfolioCreatedAt,portfolioUpdatedAt,portfolioMainText,recommendPostList,pageSlug})  =>　{
 
+
+    let cutCreatedDate = ''
+    let cutUpdatedDate = ''
+    if(portfolioCreatedAt){
+        cutCreatedDate = portfolioCreatedAt.slice(0,10)
+        cutCreatedDate = cutCreatedDate.replace(/-/g,'/')
+    }
+    if(portfolioUpdatedAt){
+        cutUpdatedDate = portfolioUpdatedAt.slice(0,10)
+        cutUpdatedDate = cutUpdatedDate.replace(/-/g,'/')
+    }
+
+
     const keyImageUrl = portfolioField.thumbnailImage ? portfolioField.thumbnailImage.fields.file.url : defaultUrl
 
     return(
@@ -29,8 +42,8 @@ const PortfolioPage: FC<PortfolioProps> = ({portfolioField,portfolioCreatedAt,po
                     <TitleBlock>
                         <WorksTitle>{portfolioField.title}</WorksTitle>
                         <div>
-                            <span>記事作成日 {portfolioCreatedAt} </span><br/>
-                            <span>最終更新日 {portfolioUpdatedAt}</span>
+                            <span>記事作成日 {cutCreatedDate} </span><br/>
+                            <span>最終更新日 {cutUpdatedDate}</span>
                         </div>
                     </TitleBlock>
                 </KeyImageSection>
