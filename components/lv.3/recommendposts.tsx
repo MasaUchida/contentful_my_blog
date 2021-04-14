@@ -26,7 +26,7 @@ const RecommendPosts: FC<RecommendPostsProps> = ({list,slug})  =>　{
                                 excerpt = {item.fields.excerpt}
                                 category = {item.fields.category.fields.categoryName}
                                 linkUrl = {`/${item.fields.category.fields.categorySlug}/${item.fields.slug}`}
-                                createdAt = { item.sys.createdAt }
+                                updatedAt = { item.sys.createdAt }
                             />
                         )
                     })}
