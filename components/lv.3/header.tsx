@@ -114,12 +114,13 @@ const HeaderBody = styled.header<{version : 'HOME' | 'POSTPAGE', isKeyVisual : b
     padding: 0 1rem;
     z-index: 20;
     width: 100%;
-    height: 80px;
+    height: 4rem;
     border-bottom: solid 1px ${({version}) => version=='HOME' ? 'rgba(0,0,0,0.12)' : 'rgba(255,255,255,0.7)' } ;
     background-color: ${({version,isKeyVisual}) => version=='HOME' ? isKeyVisual ? 'rgba(255,255,255,0)' : 'rgba(255,255,255,1)' : isKeyVisual ? 'rgba(0,0,0,0)' : 'rgba(0,0,0,0.3)' };
     backdrop-filter: blur(5px);
     transition: background-color 0.4s ease-in-out;
     @media ${DEVICE.BORDER} {
+        height: 5rem;
         padding: 0 5rem;
     }
 `
@@ -142,16 +143,16 @@ const Logo = styled.h1<{version : 'HOME' | 'POSTPAGE' , isKeyVisual : boolean}>`
     &::before{
         display: inline-block;
         content: '';
-        width: 40px;
-        height: 40px;
+        width: 2rem;
+        height: 2rem;
         background-color: #FFC000;
         margin-right: 1rem;
     }
     @media ${DEVICE.BORDER} {
         font-size: ${FONT_SIZE.XXLARGE}rem;
         &::before{
-        width: 48px;
-        height: 48px;
+        width: 3rem;
+        height: 3rem;
     }
     }
 `
