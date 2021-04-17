@@ -7,9 +7,7 @@ import styled from 'styled-components';
 const Contents: FC = ({children})  =>　{
     return(
         <ContentsWrapper>
-            <ContentsText>
                 {children}
-            </ContentsText>
         </ContentsWrapper>
     )
 }
@@ -21,9 +19,6 @@ const ContentsWrapper = styled.div`
     background-color: #FFFFFF;
     border-radius: 8px;
     padding: 0 2rem 2rem 2rem;
-`
-
-const ContentsText = styled.div`
     margin-top: -1rem;
     font-size: 15px;
     line-height: 2em;

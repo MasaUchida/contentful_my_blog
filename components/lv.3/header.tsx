@@ -2,6 +2,7 @@ import React,{FC,useState,useEffect} from 'react'
 import Link from 'next/link'
 
 import styled from 'styled-components'
+import { DEVICE,FONT_SIZE,FONT_WEIGHT,BORDER_RADIUS,BORDER_WHIGHT,COLOR } from '../../config/styleValue'
 
 interface HeaderProps {
     headerConf?: 'HOME' | 'POSTPAGE';
@@ -110,7 +111,7 @@ const HeaderBody = styled.header<{version : 'HOME' | 'POSTPAGE', isKeyVisual : b
     display: flex;
     align-items: center;
     position: fixed;
-    padding: 0 5rem;
+    padding: 0 1rem;
     z-index: 20;
     width: 100%;
     height: 80px;
@@ -118,6 +119,9 @@ const HeaderBody = styled.header<{version : 'HOME' | 'POSTPAGE', isKeyVisual : b
     background-color: ${({version,isKeyVisual}) => version=='HOME' ? isKeyVisual ? 'rgba(255,255,255,0)' : 'rgba(255,255,255,1)' : isKeyVisual ? 'rgba(0,0,0,0)' : 'rgba(0,0,0,0.3)' };
     backdrop-filter: blur(5px);
     transition: background-color 0.4s ease-in-out;
+    @media ${DEVICE.BORDER} {
+        padding: 0 5rem;
+    }
 `
 
 const LogoLink = styled.a`
@@ -131,16 +135,24 @@ const LogoLink = styled.a`
 const Logo = styled.h1<{version : 'HOME' | 'POSTPAGE' , isKeyVisual : boolean}>`
     display: flex;
     align-items: center;
-    font-size: 32px;
+    margin: 0;
+    font-size: ${FONT_SIZE.XLARGE}rem;
     font-weight: 600;
     color: ${({version,isKeyVisual}) => version == 'HOME' ? 'rgba(0,0,0,0.87)' : isKeyVisual ? 'rgba(0,0,0,0.87)' : 'rgba(255,255,255,1)' };
     &::before{
         display: inline-block;
         content: '';
-        width: 48px;
-        height: 48px;
+        width: 40px;
+        height: 40px;
         background-color: #FFC000;
         margin-right: 1rem;
+    }
+    @media ${DEVICE.BORDER} {
+        font-size: ${FONT_SIZE.XXLARGE}rem;
+        &::before{
+        width: 48px;
+        height: 48px;
+    }
     }
 `
 

@@ -2,11 +2,10 @@ import { FC } from 'react';
 
 import Tag from '../../components/lv.2/tag';
 import Post from '../../components/lv.2/post'
-import Contents from '../../components/lv.2/contents';
 import Sidebar from '../../components/lv.2/sidebar'
 
-
 import styled from 'styled-components';
+import { DEVICE,FONT_SIZE,FONT_WEIGHT,BORDER_RADIUS,BORDER_WHIGHT,COLOR } from '../../config/styleValue'
 
 const imageUrl = '/post_dummy.png'
 
@@ -15,9 +14,17 @@ interface Props{
     contentCreatedAt: any;
     contentUpdatedAt: any;
     contentMainText: any;
+    recommendPostList?: [];
+    pageSlug?: string | string[];
 }
 
-const ContentsPage: FC<Props> = ({contentField,contentCreatedAt,contentUpdatedAt,contentMainText})  =>　{
+const ContentsPage: FC<Props> = ({
+    contentField,
+    contentCreatedAt,
+    contentUpdatedAt,
+    contentMainText,
+    recommendPostList,
+    pageSlug})  =>　{
 
     let cutCreatedDate = ''
     let cutUpdatedDate = ''
@@ -43,17 +50,12 @@ const ContentsPage: FC<Props> = ({contentField,contentCreatedAt,contentUpdatedAt
             </KeyImageSection>
             <MainSection>
                 <ContentsWrapper>
-                    <Contents>
-                        {/*test.items[0].fields.mainContents.split('\n').map((str,index) => (<Fragment key={index}>{str}<br /></Fragment>))*/}
-                        <div
-                            dangerouslySetInnerHTML ={
-                                {__html: contentMainText}
-                            }
+                        <Contents
+                            dangerouslySetInnerHTML ={ {__html: contentMainText} }
                         />
-                    </Contents>
                 </ContentsWrapper>
                     <SideBarWrapper>
-                        <Sidebar contentsPage/>
+                        <Sidebar width = {33}/>
                     </SideBarWrapper>
             </MainSection>
             <RecommendSection>
@@ -120,6 +122,14 @@ const MainSection = styled.section`
 const ContentsWrapper = styled.div`
     width: 75%;
     margin-right: 24px;
+    position: relative;
+    border: solid 1px #DBD2C5;
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    padding: 0 1rem 2rem 1rem;
+    @media ${DEVICE.BORDER} {
+        padding: 0 2rem 2rem 2rem;
+    }
 `
 
 const SideBarWrapper = styled.div`
@@ -135,4 +145,74 @@ const RecommendSection = styled.section`
 const RecommendWrapper = styled.div`
     width: 75%;
     padding-right: 24px;
+`
+
+const Contents = styled.div`
+    margin-top: -1rem;
+    font-size: ${FONT_SIZE.SBASE}px;
+    line-height: 2em;
+    & h2{
+        font-size: ${FONT_SIZE.LMEDIUM}rem;
+        margin: 3rem 0 1rem 0;
+        padding-bottom: 0.5rem;
+        border-bottom: solid 1px #DBD2C5;
+        @media ${DEVICE.BORDER}{
+            font-size: ${FONT_SIZE.XLARGE}rem;
+        }
+    }
+
+
+    & img{
+        width: 100%;
+    }
+
+    & .flex{
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+        @media ${DEVICE.BORDER} {
+            flex-direction: row;
+        }
+    }
+
+    & img.in-flex{
+        flex: 1;
+        width: 100%;
+        margin: 0 0 1rem 0;
+        @media ${DEVICE.BORDER} {
+            width: 60%;
+            margin: 0 0 0 2rem ;
+        }
+    }
+
+    & p.in-flex{
+        flex: 1;
+    }
+
+    & pre{
+        padding: 1rem;
+        border-radius: 4px;
+        background-color: rgba(0,0,0,0.87);
+    }
+
+    & code{
+        color: #fff;
+    }
+
+    & ul{
+        background-color: rgba(0,0,0,0.06);
+        border-radius: 4px;
+        padding: 1rem 2rem;
+        list-style: none;
+    }
+
+    & li::before{
+        content: "🔥";
+        margin-right: 0.5rem;
+    }
+
+    @media ${DEVICE.BORDER} {
+        font-size: ${FONT_SIZE.LBASE}rem;
+    }
+
 `

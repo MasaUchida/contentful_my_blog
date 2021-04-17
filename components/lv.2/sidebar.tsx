@@ -2,16 +2,17 @@ import { FC } from 'react';
 import Link from 'next/link'
 
 import styled from 'styled-components';
+import { DEVICE,FONT_SIZE,FONT_WEIGHT,BORDER_RADIUS,BORDER_WHIGHT,COLOR } from '../../config/styleValue'
 
 const myImage = '/miffy.png'
 
 interface SideBarProps{
-    contentsPage?: boolean;
+    width?: number;
 }
 
-const Sidebar: FC<SideBarProps> = ({contentsPage})  =>　{
+const Sidebar: FC<SideBarProps> = ()  =>　{
     return(
-        <SideBarWrapper props = {contentsPage}>
+        <SideBarWrapper>
             <div>
                 <Figure>
                     <MyProfileImage src={myImage} alt=""/>
@@ -31,17 +32,20 @@ const Sidebar: FC<SideBarProps> = ({contentsPage})  =>　{
 }
 export default Sidebar
 
-const SideBarWrapper = styled.div<{props : boolean}>`
+const SideBarWrapper = styled.div`
     height: auto;
     padding: 40px 0px;
     text-align: center;
-    margin-left: 24px;
     border: solid 1px #DBD2C5;
     background-color: #FFFFFF;
     border-radius: 8px;
     position: sticky;
     top: 100px;
+    @media ${DEVICE.BORDER} {
+        margin-left: 24px;
+    }
 `
+
 
 const Figure = styled.figure`
     margin: 0;

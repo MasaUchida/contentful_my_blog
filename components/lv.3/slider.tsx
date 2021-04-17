@@ -2,7 +2,9 @@ import { FC  , useState , useEffect } from 'react';
 import Link from 'next/link'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore,{ Autoplay,Navigation,Pagination } from 'swiper'
+
 import styled from 'styled-components';
+import { DEVICE,FONT_SIZE,FONT_WEIGHT,BORDER_RADIUS,BORDER_WHIGHT,COLOR } from '../../config/styleValue'
 
 const imageUrl = '/post_dummy.png'
 
@@ -20,8 +22,6 @@ const Slider: FC<SliderPostProps> = ({list})  =>　{
     useEffect(() => {
         setIsClient(true)
     }, [])
-
-
 
 
     return(
@@ -84,8 +84,12 @@ export default Slider
 const MainVisualArticle = styled.article`
     position: relative;
     margin: 0 auto;
-    height: 480px;
-    border-radius: 8px;
+    height: 100vw;
+    border-radius: 0px;
+    @media ${DEVICE.BORDER} {
+        height: 480px;
+        border-radius: 8px;
+    }
 `
 
 const MainVisualLink = styled.a`
@@ -110,11 +114,12 @@ const MainVisualLink = styled.a`
 
 const MainTitle = styled.div`
     position: absolute;
-    padding: 20px 32px;
+    padding: 1rem 1.25rem;
     background-color: #FFF;
     left: 0;
     bottom: 40px;
     z-index: 10;
+    box-shadow: 0 0 0.75rem rgba(0,0,0,0.26);
     &::before{
         content: '';
         position: absolute;
@@ -135,10 +140,17 @@ const MainTitle = styled.div`
         width: 12px;
         background-color: #00A79B;
     }
+    @media ${DEVICE.BORDER} {
+        padding: 1.25rem 2rem;
+    }
 `
 
 const Title = styled.h2`
-    font-size: 24px;
+    font-size: ${FONT_SIZE.LMEDIUM}rem;
+    margin-bottom: 0.5rem;
+    @media ${DEVICE.BORDER} {
+        font-size: ${FONT_SIZE.XLARGE}rem;
+    }
 `;
 
 const CreateDate = styled.p`
@@ -153,9 +165,13 @@ const Category = styled.aside`
     font-weight: 600;
     padding: 10px 16px;
     position: absolute;
-    top: 32px;
-    right: 32px;
+    top: 1rem;
+    right: 0.5rem;
     background-color: #FFC000 ;
+    @media ${DEVICE.BORDER} {
+        top: 1.5rem;
+        right: 1.5rem;
+    }
 `
 
 const Figure = styled.figure`

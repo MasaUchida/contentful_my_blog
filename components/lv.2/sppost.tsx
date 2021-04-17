@@ -9,7 +9,6 @@ import { DEVICE,FONT_SIZE,FONT_WEIGHT,BORDER_RADIUS,BORDER_WHIGHT,COLOR } from '
 interface PostData {
     thumbnailUrl?: string;
     title?: string;
-    excerpt?: string;
     category?: string;
     linkUrl?: string;
     updatedAt?: string;
@@ -17,11 +16,11 @@ interface PostData {
 }
 
 
-const Post: FC<PostData> = ({thumbnailUrl,title,excerpt,category,linkUrl,updatedAt,IslastPost})  =>　{
+const SpPost: FC<PostData> = ({thumbnailUrl,title,category,linkUrl,updatedAt,IslastPost})  =>　{
 
-    let cutExerpt = excerpt.slice(0,100)
-    if(cutExerpt.length == 100){
-        cutExerpt = cutExerpt + "..."
+    let cutTitle = title.slice(0,20)
+    if(cutTitle.length == 20){
+        cutTitle = cutTitle + "..."
     }
 
     let cutDate = ''
@@ -43,12 +42,11 @@ const Post: FC<PostData> = ({thumbnailUrl,title,excerpt,category,linkUrl,updated
                                 </Figure>
                             </ImageBox>
                             <TextBox>
-                                <Title>{title}</Title>
-                                <Excerpt>{cutExerpt}</Excerpt>
-                                <Hoge>
-                                    <UpdateDate>最終更新日：{cutDate !=='' ? cutDate : 'hoge'}</UpdateDate>
+                                <Title>{cutTitle}</Title>
+                                <DecorationBlock>
+                                    <UpdateDate>最終更新日：{cutDate !=='' ? cutDate : ''}</UpdateDate>
                                     <DecorationButton>▶︎</DecorationButton>
-                                </Hoge>
+                                </DecorationBlock>
                             </TextBox>
                         </BoxWrapper>
                     </LinkWrapper>
@@ -58,18 +56,8 @@ const Post: FC<PostData> = ({thumbnailUrl,title,excerpt,category,linkUrl,updated
     )
 }
 
-export default Post
+export default SpPost
 
-
-const Hoge = styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: absolute;
-    left: 2rem;
-    right: 8px;
-    bottom: 8px;
-`
 
 const PostBody = styled.article<{isLast: boolean}>`
     position: relative;
@@ -86,9 +74,6 @@ const PostBody = styled.article<{isLast: boolean}>`
     &:hover{
         opacity: 0.5;
         text-decoration: none;
-    }
-    @media ${DEVICE.BORDER} {
-        height: 160px;
     }
 `
 
@@ -108,13 +93,14 @@ const BoxWrapper = styled.div`
 
 const ImageBox = styled.div`
     position: relative;
-    width: 240px;
+    flex: 1;
 `
 
 const Category = styled.aside`
     color: #FFF;
-    font-size: 11px;
-    padding: 6px 12px;
+    font-size: ${FONT_SIZE.XXSMALL}rem;
+    font-weight: ${FONT_WEIGHT.BOLD};
+    padding: 4px 8px;
     position: absolute;
     top: 0;
     left: 0;
@@ -125,10 +111,6 @@ const Figure = styled.figure`
     margin: 0;
     width: 100%;
     height: 100%;
-
-    @media ${DEVICE.BORDER} {
-        width: 240px;
-    }
 `
 
 const Thumbnail = styled.img`
@@ -140,17 +122,23 @@ const Thumbnail = styled.img`
 
 const TextBox = styled.div`
     position: relative;
-    padding: 1.5rem 2rem 0 2rem;
-    width: 100%;
+    padding: 1rem 1.5rem 0 1.5rem;
+    flex: 1;
 `;
 
 const Title = styled.h3`
-    font-size: 18px;
+    font-size: ${FONT_SIZE.LBASE}rem;
 `;
 
-const Excerpt = styled.p`
-    font-size: 13px;
-`;
+const DecorationBlock = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    left: 1.5rem;
+    right: 8px;
+    bottom: 8px;
+`
 
 const UpdateDate = styled.p`
     font-size: 12px;

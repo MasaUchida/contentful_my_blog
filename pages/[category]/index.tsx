@@ -4,11 +4,12 @@ import { GetStaticProps , InferGetStaticPropsType , GetStaticPaths } from 'next'
 
 import Layout from '../../components/layout'
 import CardBlock from '../../components/lv.3/cardblock'
-import SideBarBlock from '../../components/lv.3/sidebarblock'
+import SideBar from '../../components/lv.2/sidebar'
 
 import { getPostsByCategory ,  getAllCategorySlugs } from '../../lib/getposts';
 
 import styled from 'styled-components'
+import { DEVICE,FONT_SIZE,FONT_WEIGHT,BORDER_RADIUS,BORDER_WHIGHT,COLOR } from '../../config/styleValue'
 
 const imageUrl = '/post_dummy.png'
 
@@ -47,10 +48,12 @@ const Category: FC = ({postList}:InferGetStaticPropsType<typeof getStaticProps>)
             </KeyVisualSection>
             <MainSection>
                 <CardBlock
-                    blockWidth = {66}
+                    blockWidth = {70}
                     list = {postList}
                 />
-                <SideBarBlock blockWidth = {33}/>
+                <StickyBox>
+                    <SideBar/>
+                </StickyBox>
             </MainSection>
         </Layout>
     )
@@ -59,9 +62,14 @@ export default Category
 
 export const getStaticPaths: GetStaticPaths = async () => {
     const categoryList = await getAllCategorySlugs()
-    const paths = categoryList.map((item) => `/${item}`)
+    const paths = categoryList.map((item) => {
+        return {
+            params: {
+                category: item,
+            }
+        }
+    })
 
-    //pathsがstring[] → [ '/academic-design/markdown', '/ui-ux/post-model-test2' ]
     return{
         paths,
         fallback: false,
@@ -97,4 +105,12 @@ const KeyVisualSection = styled.section`
     background-position: center;
     background-size: cover;
     background-image: url(${imageUrl});
+`
+
+const StickyBox = styled.div`
+    height: inherit;
+    width: 90%;
+    @media ${DEVICE.BORDER} {
+        width: 30%;
+    }
 `

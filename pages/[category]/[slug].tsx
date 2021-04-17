@@ -3,7 +3,7 @@ import { GetStaticProps , InferGetStaticPropsType , GetStaticPaths } from 'next'
 import { useRouter } from 'next/router'
 import remark from 'remark'
 import html from 'remark-html'
-import codeBlock from 'remark-code-blocks'
+
 
 import Layout from '../../components/layout'
 import ContentsPage from '../../components/lv.4/contentspage';
@@ -46,7 +46,14 @@ export const getStaticPaths: GetStaticPaths = async () => {
     const postList = await getAllPosts()
     const postItems = postList.items
 
-    const paths = postItems.map((item) => `/${item.fields.category.fields.categorySlug}/${item.fields.slug}`)
+    const paths = postItems.map((item) => {
+        return {
+            params:{
+                    category: item.fields.category.fields.categorySlug,
+                    slug: item.fields.slug,
+                }
+            }
+    })
 
     //pathsがstring[] → [ '/academic-design/markdown', '/ui-ux/post-model-test2' ]
     return{
@@ -68,7 +75,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     const postField = post[0].fields
     const postCreatedAt = post[0].sys.createdAt
     const postUpdatedAt = post[0].sys.updatedAt
-    const md2hast = await remark().use(html).use(codeBlock).process(post[0].fields.mainContents)
+    const md2hast = await remark().use(html).process(post[0].fields.mainContents)
     const htmlText = md2hast.toString()
 
     return{

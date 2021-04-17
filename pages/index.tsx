@@ -1,4 +1,5 @@
-import {FC} from 'react';
+import {FC, useState, useEffect } from 'react';
+import { useWindowDimensions } from '../hooks/usewindowdimension';
 import { GetStaticProps , InferGetStaticPropsType } from 'next'
 
 import { getLimitPosts } from '../lib/getposts';
@@ -6,17 +7,33 @@ import { getLimitPosts } from '../lib/getposts';
 import Layout from '../components/layout'
 import Slider from '../components/lv.3/slider'
 import PostsBlock from '../components/lv.3/postsblock';
-import SideBarBlock from '../components/lv.3/sidebarblock';
+import SideBar from '../components/lv.2/sidebar';
 //import IconsList from '../components/lv.3/iconslist'
 
 import styled from 'styled-components'
+import { SIZE,DEVICE,FONT_SIZE,FONT_WEIGHT,BORDER_RADIUS,BORDER_WHIGHT,COLOR } from '../config/styleValue'
 
 
 const Home:FC = ({postList,sliderPostList}:InferGetStaticPropsType<typeof getStaticProps>) => {
 
+    //variables
+    let num = 0
+    let spFlag = false
 
-    //console.log(postList)
-    //postList.map((item)=>{console.log(item.fields)})
+    //hooks
+    let windowWidth = useWindowDimensions()
+    const [isClient, setIsClient] = useState(false)
+
+    useEffect(() => {
+        setIsClient(true)
+    }, [])
+
+    //flag
+
+    if (process.browser) num = windowWidth.width
+    if( num < SIZE.BORDER ){
+        spFlag = !spFlag
+    }
 
     return (
         <Layout layoutConf = 'HOME'>
@@ -27,8 +44,13 @@ const Home:FC = ({postList,sliderPostList}:InferGetStaticPropsType<typeof getSta
                     />
                 </KeyVisual>
                 <MainSection>
-                    <PostsBlock list = {postList}/>
-                    <SideBarBlock/>
+                    <PostsBlock
+                        list = {postList}
+                        SP = {isClient ? spFlag : false}
+                    />
+                    <StickyBox>
+                        <SideBar/>
+                    </StickyBox>
                 </MainSection>
             </main>
         </Layout>
@@ -59,16 +81,29 @@ export const getStaticProps :GetStaticProps = async () => {
 
 const KeyVisual = styled.section`
     width: 100%;
-    padding: 7rem 0 6rem 0;
+    padding: 5rem 0 5rem 0;
+    @media ${DEVICE.BORDER} {
+        padding: 7rem 0 6rem 0;
+    }
 `
 
 const MainSection = styled.section`
     display: flex;
-    justify-content: flex-start;
-    max-width: 1200px;
+    flex-direction: column;
+    align-items: center;
     margin: 0 auto 64px auto;
+    @media ${DEVICE.BORDER} {
+        max-width: 1200px;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: normal;
+    }
 `
 
-const IconLinkSection = styled.section`
-    margin-bottom: 80px;
+const StickyBox = styled.div`
+    height: inherit;
+    width: 90%;
+    @media ${DEVICE.BORDER} {
+        width: 30%;
+    }
 `
