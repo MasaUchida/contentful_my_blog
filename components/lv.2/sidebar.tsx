@@ -1,10 +1,11 @@
 import { FC } from 'react';
 import Link from 'next/link'
+import Image from 'next/image'
 
 import styled from 'styled-components';
 import { DEVICE,FONT_SIZE,FONT_WEIGHT,BORDER_RADIUS,BORDER_WHIGHT,COLOR } from '../../config/styleValue'
 
-const myImage = '/miffy.png'
+const myImage = '/my_icon.PNG'
 
 interface SideBarProps{
     width?: number;
@@ -15,7 +16,12 @@ const Sidebar: FC<SideBarProps> = ()  =>　{
         <SideBarWrapper>
             <div>
                 <Figure>
-                    <MyProfileImage src={myImage} alt=""/>
+                    <MyProfileImage
+                        src={myImage}
+                        alt=""
+                        height= {120}
+                        width= {120}
+                    />
                 </Figure>
             </div>
             <div>
@@ -52,11 +58,9 @@ const Figure = styled.figure`
     width: 100%;
 `;
 
-const MyProfileImage = styled.img`
+const MyProfileImage = styled(Image)`
     border-radius: 50%;
     margin-bottom: 32px;
-    height: 120px;
-    width: 120px;
 `
 
 const Bio = styled.p`

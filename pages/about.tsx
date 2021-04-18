@@ -1,4 +1,5 @@
-import { FC } from 'react';
+import { FC,useState,useEffect } from 'react';
+import Image from 'next/image'
 import { useWindowDimensions } from '../hooks/usewindowdimension'
 import Layout from '../components/layout';
 import Card from '../components/lv.2/card';
@@ -9,7 +10,7 @@ import { getPostsByCategory,} from '../lib/getposts';
 import styled from 'styled-components';
 import { SIZE,DEVICE,FONT_SIZE,FONT_WEIGHT,BORDER_RADIUS,BORDER_WHIGHT,COLOR } from '../config/styleValue'
 
-const myImage = '/miffy.png'
+const myImage = '/my_icon.PNG'
 const profileSVG = '/Profile.svg'
 const portfolioSVG = '/Portfolio.svg'
 
@@ -22,12 +23,18 @@ const About : FC = ({postList}:InferGetStaticPropsType<typeof getStaticProps>)  
 
         //hooks
         let windowWidth = useWindowDimensions()
+        const [isClient, setIsClient] = useState(false)
+
+        useEffect(() => {
+            setIsClient(true)
+        }, [])
 
         //flag
         if (process.browser) num = windowWidth.width
         if( num < SIZE.BORDER ){
             spFlag = !spFlag
         }
+
 
     return(
         <Layout>
@@ -36,7 +43,13 @@ const About : FC = ({postList}:InferGetStaticPropsType<typeof getStaticProps>)  
                     <ProfileBg src = {profileSVG}/>
                     <ProfileImageBox>
                         <Figure>
-                            <MyProfileImage src={myImage} alt=""/>
+                            <MyProfileImage
+                                src={myImage}
+                                alt=""
+                                height = {160}
+                                width = {160}
+                                layout = {"responsive"}
+                            />
                         </Figure>
                     </ProfileImageBox>
                     <div>
@@ -75,7 +88,7 @@ const About : FC = ({postList}:InferGetStaticPropsType<typeof getStaticProps>)  
                                         category = {item.fields.category.fields.categoryName}
                                         linkUrl = { '/' + item.fields.category.fields.categorySlug + '/' + item.fields.slug}
                                         createdAt = {item.sys.createdAt}
-                                        cardWidth = {spFlag ? 90 : 31}
+                                        cardWidth = {isClient && spFlag ? 90 : 31}
                                     />
                                 )
                                 }
@@ -141,11 +154,13 @@ const ProfileImageBox = styled.div`
 `
 
 const ProfileName = styled.h2`
+    position: relative;
     display: inline-block;
     font-size: ${FONT_SIZE.LMEDIUM};
     padding: 0.5rem;
     margin-bottom: 2rem;
     border-bottom: solid 4px #FFC000;
+    z-index: 10;
     @media ${DEVICE.BORDER} {
         font-size: ${FONT_SIZE.XLARGE};
         padding: 1rem 0.5rem;
@@ -194,19 +209,20 @@ const ProfileDescription = styled.p`
 
 const Figure = styled.figure`
     position: relative;
-    margin: 0;
-    width: 100%;
-    z-index: 10;
-`
-
-const MyProfileImage = styled.img`
-    border-radius: 50%;
-    margin-bottom: 1rem;
+    margin: 0 auto;
     height: 7rem;
     width: 7rem;
+    z-index: 10;
     @media ${DEVICE.BORDER} {
         height: 10rem;
         width: 10rem;
+    }
+`
+
+const MyProfileImage = styled(Image)`
+    border-radius: 50%;
+    margin-bottom: 1rem;
+    @media ${DEVICE.BORDER} {
         margin-bottom: 2rem;
     }
 `
